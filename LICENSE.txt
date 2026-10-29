@@ -1,0 +1,7 @@
+MirrorForge 1.0.0
+Copyright (c) 2026. All rights reserved.
+
+This source package is provided to the recipient for development and evaluation.
+Redistribution, resale, or sublicensing of this source or compiled application is not granted by this notice.
+A separate commercial licence may be supplied by the copyright holder.
+Third-party dependencies are governed by their respective licences.

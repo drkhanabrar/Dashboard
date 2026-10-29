@@ -1,0 +1,108 @@
+{
+  "name": "mirrorforge",
+  "version": "1.0.0",
+  "description": "Self-hosted, multi-screen digital dashboard and smart-mirror platform",
+  "private": true,
+  "license": "UNLICENSED",
+  "main": "desktop/main.cjs",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron .",
+    "server": "node apps/server/src/server.cjs",
+    "license:api": "node apps/license-api/src/server.cjs",
+    "license:generate-keys": "node scripts/generate-license-keys.cjs",
+    "license:issue": "node scripts/issue-license.cjs",
+    "mobile:prepare": "node apps/mobile/scripts/prepare-mobile.cjs",
+    "mobile:sync": "npm run mobile:prepare && npx cap sync",
+    "mobile:add:android": "npm run mobile:prepare && npx cap add android",
+    "mobile:add:ios": "npm run mobile:prepare && npx cap add ios",
+    "build:win": "electron-builder --win nsis portable --x64",
+    "build:linux": "electron-builder --linux AppImage deb --x64",
+    "build:linux:arm64": "electron-builder --linux AppImage deb --arm64",
+    "build:mac:intel": "electron-builder --mac dmg zip --x64",
+    "build:mac:arm": "electron-builder --mac dmg zip --arm64",
+    "test": "node --test tests/*.test.cjs",
+    "test:smoke": "node scripts/smoke-test.cjs",
+    "build:win:arm64": "electron-builder --win nsis portable --arm64"
+  },
+  "dependencies": {
+    "bcryptjs": "3.0.2",
+    "better-sqlite3": "13.0.3",
+    "cookie-parser": "1.4.7",
+    "express": "5.3.0",
+    "express-rate-limit": "7.5.0",
+    "helmet": "8.0.0",
+    "multer": "2.5.0"
+  },
+  "devDependencies": {
+    "@capacitor/android": "5.7.8",
+    "@capacitor/cli": "5.7.8",
+    "@capacitor/core": "5.7.8",
+    "@capacitor/ios": "5.7.8",
+    "electron": "45.1.0",
+    "electron-builder": "26.18.1"
+  },
+  "build": {
+    "appId": "com.mirrorforge.dashboard",
+    "productName": "MirrorForge",
+    "asar": true,
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "desktop/**/*",
+      "apps/server/src/**/*",
+      "apps/server/public/**/*",
+      "apps/server/config/license-public-key.pem",
+      "package.json"
+    ],
+    "extraMetadata": {
+      "main": "desktop/main.cjs"
+    },
+    "npmRebuild": true,
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "artifactName": "MirrorForge-${version}-${platform}-${arch}.${ext}",
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "artifactName": "MirrorForge-${version}-${platform}-${arch}-setup.${ext}"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "category": "Utility",
+      "artifactName": "MirrorForge-${version}-${platform}-${arch}.${ext}",
+      "desktop": {
+        "StartupWMClass": "mirrorforge"
+      },
+      "icon": "build/icons"
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "category": "public.app-category.utilities",
+      "artifactName": "MirrorForge-${version}-${platform}-${arch}.${ext}",
+      "minimumSystemVersion": "13.0.0",
+      "icon": "build/icon.icns"
+    },
+    "portable": {
+      "artifactName": "MirrorForge-${version}-${platform}-${arch}-portable.${ext}"
+    }
+  }
+}
