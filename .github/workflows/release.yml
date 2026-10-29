@@ -62,20 +62,12 @@ jobs:
           sips -z 512 512 build/icon.png --out build/MirrorForge.iconset/icon_512x512.png >/dev/null
           sips -z 1024 1024 build/icon.png --out build/MirrorForge.iconset/icon_512x512@2x.png >/dev/null
           iconutil -c icns build/MirrorForge.iconset -o build/icon.icns
-<<<<<<< HEAD
-      - name: Build desktop app
-=======
       - name: Build Linux package targets
         if: matrix.platform == 'linux'
         run: npx electron-builder --linux AppImage deb --${{ matrix.arch }} --publish never
       - name: Build Windows or macOS package targets
         if: matrix.platform != 'linux'
-<<<<<<< HEAD
->>>>>>> 1f9b19d (Fix V1 builds and add legacy iOS 9 client)
-        run: npx electron-builder --${{ matrix.platform }} --${{ matrix.arch }}
-=======
         run: npx electron-builder --${{ matrix.platform }} --${{ matrix.arch }} --publish never
->>>>>>> 81416ff (Fix Electron Builder publishing in V1.0.2)
       - name: Upload desktop artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -121,12 +113,6 @@ jobs:
           retention-days: 14
 
   ios:
-<<<<<<< HEAD
-    name: iOS 13+ unsigned IPA
-    runs-on: macos-15
-    steps:
-      - uses: actions/checkout@v4
-=======
     name: Modern iOS 13+ unsigned IPA
     runs-on: macos-15
     steps:
@@ -135,7 +121,6 @@ jobs:
         uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: '16.4'
->>>>>>> 1f9b19d (Fix V1 builds and add legacy iOS 9 client)
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -150,11 +135,7 @@ jobs:
       - name: Build iOS app without signing
         run: |
           xcodebuild \
-<<<<<<< HEAD
-            -project ios/App/App.xcodeproj \
-=======
             -workspace ios/App/App.xcworkspace \
->>>>>>> 1f9b19d (Fix V1 builds and add legacy iOS 9 client)
             -scheme App \
             -configuration Release \
             -sdk iphoneos \
@@ -174,12 +155,6 @@ jobs:
           if-no-files-found: error
           retention-days: 14
 
-<<<<<<< HEAD
-  publish:
-    name: Publish GitHub Release
-    if: github.ref_type == 'tag'
-    needs: [desktop, android, ios]
-=======
 
   ios-legacy:
     name: Legacy iOS 9+ display-only unsigned IPA (64-bit devices)
@@ -226,7 +201,6 @@ jobs:
     name: Publish GitHub Release
     if: github.ref_type == 'tag'
     needs: [desktop, android, ios, ios-legacy]
->>>>>>> 1f9b19d (Fix V1 builds and add legacy iOS 9 client)
     runs-on: ubuntu-24.04
     steps:
       - name: Download all platform artifacts

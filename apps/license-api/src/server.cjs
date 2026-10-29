@@ -43,11 +43,7 @@ function createLicenseApp(options = {}) {
     if (expected.length < 24 || !constantTimeEqual(actual, expected)) return res.status(401).json({ error: 'Issuer administrator token is missing or invalid.' });
     next();
   };
-<<<<<<< HEAD
-  app.get('/health', (req, res) => res.json({ ok: true, service: 'MirrorForge License Issuer', version: '1.0.0', signingReady: Boolean(privateKey) }));
-=======
   app.get('/health', (req, res) => res.json({ ok: true, service: 'MirrorForge License Issuer', version: '1.0.1', signingReady: Boolean(privateKey) }));
->>>>>>> 1f9b19d (Fix V1 builds and add legacy iOS 9 client)
   app.post('/v1/admin/licenses', adminAuth, (req, res) => {
     const tier = String(req.body?.tier || '').toLowerCase();
     if (!['home', 'pro', 'commercial'].includes(tier)) return res.status(400).json({ error: 'Tier must be home, pro or commercial.' });

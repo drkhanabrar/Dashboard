@@ -108,11 +108,7 @@ function createApp(options = {}) {
   const maxWidgetsForScreen = () => currentLicense().maxWidgetsPerScreen;
   const createWidget = db.prepare('INSERT INTO widgets(screen_id,type,title,config_json,grid_x,grid_y,grid_w,grid_h) VALUES (?,?,?,?,?,?,?,?)');
 
-<<<<<<< HEAD
-  app.get('/api/health', (req, res) => json(res, 200, { ok: true, product: 'MirrorForge', version: '1.0.0', timestamp: new Date().toISOString() }));
-=======
-  app.get('/api/health', (req, res) => json(res, 200, { ok: true, product: 'MirrorForge', version: '1.0.1', timestamp: new Date().toISOString() }));
->>>>>>> 1f9b19d (Fix V1 builds and add legacy iOS 9 client)
+  app.get('/api/health', (req, res) => json(res, 200, { ok: true, product: 'MirrorForge', version: '1.0.2', timestamp: new Date().toISOString() }));
   app.get('/api/setup/status', (req, res) => json(res, 200, { setupComplete: setupComplete() }));
   app.post('/api/setup', async (req, res) => {
     if (setupComplete()) return json(res, 409, { error: 'Initial setup has already been completed.' });
@@ -356,14 +352,9 @@ function createApp(options = {}) {
   });
 
   app.get('/display/:token', (req, res) => res.sendFile(path.join(staticDir, 'display.html')));
-<<<<<<< HEAD
-  app.get('/api/admin/system', auth, (req, res) => json(res, 200, {
-    version: '1.0.0', host: process.env.HOST || '0.0.0.0', port: Number(process.env.PORT || 4173), dataDir,
-=======
   app.get('/legacy-display/:token', (req, res) => res.sendFile(path.join(staticDir, 'legacy-display.html')));
   app.get('/api/admin/system', auth, (req, res) => json(res, 200, {
     version: '1.0.1', host: process.env.HOST || '0.0.0.0', port: Number(process.env.PORT || 4173), dataDir,
->>>>>>> 1f9b19d (Fix V1 builds and add legacy iOS 9 client)
     addresses: Object.values(os.networkInterfaces()).flat().filter((n) => n && n.family === 'IPv4' && !n.internal).map((n) => n.address)
   }));
 
@@ -402,11 +393,7 @@ async function startServer(options = {}) {
 
 if (require.main === module) {
   startServer().then(({ host, port, dataDir }) => {
-<<<<<<< HEAD
-    console.log(`MirrorForge v1.0.0 server running at http://127.0.0.1:${port}`);
-=======
     console.log(`MirrorForge v1.0.1 server running at http://127.0.0.1:${port}`);
->>>>>>> 1f9b19d (Fix V1 builds and add legacy iOS 9 client)
     console.log(`Listen address: ${host}:${port}`);
     console.log(`Data directory: ${dataDir}`);
     console.log('Complete first-run setup locally on the server PC before exposing this service to your network.');
