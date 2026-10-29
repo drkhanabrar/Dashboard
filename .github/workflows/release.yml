@@ -62,7 +62,15 @@ jobs:
           sips -z 512 512 build/icon.png --out build/MirrorForge.iconset/icon_512x512.png >/dev/null
           sips -z 1024 1024 build/icon.png --out build/MirrorForge.iconset/icon_512x512@2x.png >/dev/null
           iconutil -c icns build/MirrorForge.iconset -o build/icon.icns
+<<<<<<< HEAD
       - name: Build desktop app
+=======
+      - name: Build Linux package targets
+        if: matrix.platform == 'linux'
+        run: npx electron-builder --linux AppImage deb --${{ matrix.arch }}
+      - name: Build Windows or macOS package targets
+        if: matrix.platform != 'linux'
+>>>>>>> 1f9b19d (Fix V1 builds and add legacy iOS 9 client)
         run: npx electron-builder --${{ matrix.platform }} --${{ matrix.arch }}
       - name: Upload desktop artifacts
         uses: actions/upload-artifact@v4
@@ -109,10 +117,21 @@ jobs:
           retention-days: 14
 
   ios:
+<<<<<<< HEAD
     name: iOS 13+ unsigned IPA
     runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
+=======
+    name: Modern iOS 13+ unsigned IPA
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select Xcode toolchain
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '16.4'
+>>>>>>> 1f9b19d (Fix V1 builds and add legacy iOS 9 client)
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -127,7 +146,11 @@ jobs:
       - name: Build iOS app without signing
         run: |
           xcodebuild \
+<<<<<<< HEAD
             -project ios/App/App.xcodeproj \
+=======
+            -workspace ios/App/App.xcworkspace \
+>>>>>>> 1f9b19d (Fix V1 builds and add legacy iOS 9 client)
             -scheme App \
             -configuration Release \
             -sdk iphoneos \
@@ -147,10 +170,59 @@ jobs:
           if-no-files-found: error
           retention-days: 14
 
+<<<<<<< HEAD
   publish:
     name: Publish GitHub Release
     if: github.ref_type == 'tag'
     needs: [desktop, android, ios]
+=======
+
+  ios-legacy:
+    name: Legacy iOS 9+ display-only unsigned IPA (64-bit devices)
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select Xcode toolchain
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '16.4'
+      - name: Report toolchain
+        run: |
+          xcodebuild -version
+          xcrun --sdk iphoneos --show-sdk-version
+      - name: Build legacy client for iOS 9+ (arm64)
+        run: |
+          xcodebuild \
+            -project apps/mobile/legacy-ios/MirrorForgeLegacy.xcodeproj \
+            -target MirrorForgeLegacy \
+            -configuration Release \
+            -sdk iphoneos \
+            -derivedDataPath ios-legacy-build \
+            ARCHS=arm64 \
+            ONLY_ACTIVE_ARCH=NO \
+            IPHONEOS_DEPLOYMENT_TARGET=9.0 \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            build
+      - name: Package legacy unsigned IPA
+        run: |
+          mkdir -p release
+          bash apps/mobile/scripts/package-unsigned-ipa.sh \
+            ios-legacy-build/Build/Products/Release-iphoneos/MirrorForgeLegacy.app \
+            "release/MirrorForge-${GITHUB_REF_NAME#v}-ios9plus-arm64-unsigned.ipa"
+      - name: Upload legacy iOS artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-ios-legacy-ios9plus
+          path: release/*.ipa
+          if-no-files-found: error
+          retention-days: 14
+
+  publish:
+    name: Publish GitHub Release
+    if: github.ref_type == 'tag'
+    needs: [desktop, android, ios, ios-legacy]
+>>>>>>> 1f9b19d (Fix V1 builds and add legacy iOS 9 client)
     runs-on: ubuntu-24.04
     steps:
       - name: Download all platform artifacts

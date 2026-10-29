@@ -1,4 +1,4 @@
-# MirrorForge — Version 1.0.0
+# MirrorForge — Version 1.0.1
 
 A self-hosted, multi-screen digital dashboard for smart mirrors, PCs, tablets, phones and Android TV. The desktop application bundles its own HTTP server and SQLite database; display devices connect to that server through a local network or a secure HTTPS tunnel.
 
@@ -14,7 +14,7 @@ A self-hosted, multi-screen digital dashboard for smart mirrors, PCs, tablets, p
 - **Local media storage:** image uploads stored on the PC/server, with a 10 MB upload cap.
 - **Server-side authentication:** first-run owner setup restricted to localhost, password hashing, HTTP-only session cookie, HMAC-signed session token, login rate limiting and security headers.
 - **Tiered licensing scaffold:** Free, Home, Pro and Commercial tiers with server-enforced screen/widget/device quotas, a separate licence issuer, hashed licence keys, activation-seat limits, seat deactivation, issuer revalidation and Ed25519-signed licence payloads.
-- **Mobile shell:** Capacitor source for Android and iOS that lets an owner connect to their own server URL. The Android workflow produces an installable debug-signed APK with Android TV launcher metadata. The iOS workflow produces an unsigned IPA intended for re-signing or compatible jailbreak workflows.
+- **Mobile shell:** Capacitor source for Android and modern iOS plus a separate native legacy iOS client. Android CI produces a debug-signed APK with Android TV launcher metadata. Modern iOS CI produces an iOS 13+ unsigned IPA. A separate iOS 9+ arm64 legacy IPA opens display-only links using an ES5-compatible renderer.
 - **GitHub Actions:** CI tests and tagged release builds for the configured desktop architectures plus Android APK and iOS IPA artifacts.
 
 ## Quick start on Windows
@@ -70,7 +70,7 @@ mirrorforge-v1/
 
 ## GitHub release workflow
 
-Push a version tag such as `v1.0.0` to run `.github/workflows/release.yml`. It builds desktop packages in a runner matrix, produces the Android APK and iOS IPA artifacts, and attaches the outputs to a GitHub Release. The workflow can also be run manually to inspect build artifacts without publishing a release.
+Push a version tag such as `v1.0.1` to run `.github/workflows/release.yml`. It builds desktop packages in a runner matrix, produces the Android APK and both modern/legacy iOS IPA artifacts, and attaches the outputs to a GitHub Release. The workflow can also be run manually to inspect build artifacts without publishing a release.
 
 GitHub-hosted runner availability and native toolchains can change. If an architecture's hosted runner is not enabled for a repository/account, switch that matrix row to an available runner or a self-hosted runner with the matching CPU architecture. macOS notarization and Windows publisher signing are not configured in V1; unsigned desktop builds may show operating-system security warnings.
 
@@ -86,13 +86,12 @@ Detailed steps: [`docs/LICENSING.md`](docs/LICENSING.md).
 
 - **Android:** CI currently builds a debug-signed APK for private testing/sideloading. It is installable on compatible devices but is not a Play Store production-signed release. For public distribution, add a protected Android release keystore and signing stage.
 - **Android TV:** the workflow adds the Leanback launcher category and marks touchscreen hardware optional. Actual TV navigation and rendering must be tested with the specific TV/remote.
-- **iOS:** the workflow builds for an iOS 13.0 deployment target and packages an **unsigned** IPA. It is not installable on ordinary non-jailbroken iPhones as-is; normal distribution needs Apple signing/provisioning. Unsigned jailbreak install/re-sign processes vary by device, iOS version and jailbreak tools. This does not support iOS 8–12-era devices; the launcher is configured for iOS 13+, and actual compatibility must be verified on the target device.
+- **iOS 13+:** the Capacitor launcher is built at an iOS 13.0 deployment target and packaged as an **unsigned** IPA. It requires Apple signing/provisioning for normal device installation; jailbreak installation varies by device and tool.
+- **Legacy iOS 9+:** a second native WKWebView launcher targets iOS 9 and opens the server's `/legacy-display/<token>` page. The legacy page is display-only and uses ES5 JavaScript plus older CSS. The CI artifact is arm64-only, so it targets 64-bit iOS 9-capable devices; it will not install on 32-bit devices such as iPad 2. For those older 32-bit devices, open the legacy display link in Safari on a trusted LAN, or build a separate armv7 IPA with an older Xcode toolchain. An IPA built by current GitHub runners is unsigned and is not installable on ordinary devices until signed or processed using a compatible jailbreak workflow.
 - The mobile shell opens the server URL chosen by the device owner. Only connect to a server you trust. Use HTTPS over the internet. HTTP is allowed for local network compatibility and must not be considered secure on untrusted networks.
 
 ## V1 boundaries
 
-This first release provides the server, dashboard foundation, widget configuration, display player, device links, local media, tier limits and automated build packaging. A committed npm lockfile is not included in this initial source drop; the included GitHub workflows install the pinned top-level dependency versions, and a `package-lock.json` should be committed after the first successful dependency installation for fully locked transitive dependencies. Full Google/Apple calendar OAuth, cloud photo providers, drag-and-drop canvas editor, user/tenant administration, subscription billing, app-store signing/notarization, auto-updaters, remote monitoring and certified legacy iOS builds are intentionally left for later updates.
+This first release provides the server, dashboard foundation, widget configuration, display player, device links, local media, tier limits and automated build packaging. A committed npm lockfile is not included in this initial source drop; the included GitHub workflows install the pinned top-level dependency versions, and a `package-lock.json` should be committed after the first successful dependency installation for fully locked transitive dependencies. Full Google/Apple calendar OAuth, cloud photo providers, drag-and-drop canvas editor, user/tenant administration, subscription billing, app-store signing/notarization, auto-updaters, remote monitoring, and armv7 legacy IPAs for 32-bit iOS hardware are intentionally left for later updates.
 
 See [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md), [`docs/LICENSING.md`](docs/LICENSING.md) and [`docs/RELEASES.md`](docs/RELEASES.md).
-#   D a s h b o a r d  
- 

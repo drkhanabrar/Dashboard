@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#06101a">
+  <title>MirrorForge Legacy</title>
+  <link rel="stylesheet" href="legacy.css">
+  <script src="legacy.js" defer></script>
+</head>
+<body>
+  <main class="launcher">
+    <div class="mark">M</div>
+    <p class="eyebrow">OLDER IPHONE AND IPAD CLIENT</p>
+    <h1>Mirror<span>Forge</span></h1>
+    <p class="intro">Connect this device to a MirrorForge display. For old iOS versions, use the display link created by the server administrator.</p>
+    <form id="connect-form">
+      <label for="server-url">Display URL</label>
+      <input id="server-url" name="serverUrl" type="url" autocapitalize="off" autocorrect="off" autocomplete="url" placeholder="http://192.168.1.10:4173/display/…" required>
+      <p class="hint">Paste the complete display link from your MirrorForge server. The legacy renderer is designed for older Safari/WebKit versions.</p>
+      <button type="submit">Open display <span>&rarr;</span></button>
+    </form>
+    <button id="forget-button" class="forget hidden" type="button">Forget saved display</button>
+    <div class="privacy"><span class="dot"></span><span>Use a trusted Wi-Fi network for HTTP links. HTTPS is recommended for remote access; very old iOS versions may have limitations with newer TLS certificates.</span></div>
+    <footer>MirrorForge Legacy · iOS 9+ target</footer>
+  </main>
+  <div id="error-message" class="error hidden" role="alert"></div>
+</body>
+</html>

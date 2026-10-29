@@ -1,6 +1,10 @@
 {
   "name": "mirrorforge-mobile-shell",
+<<<<<<< HEAD
   "version": "1.0.0",
+=======
+  "version": "1.0.1",
+>>>>>>> 1f9b19d (Fix V1 builds and add legacy iOS 9 client)
   "private": true,
   "description": "Native launcher for a user-hosted MirrorForge server"
 }

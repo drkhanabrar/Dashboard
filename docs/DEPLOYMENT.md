@@ -2,7 +2,11 @@
 
 ## 1. First run
 
+<<<<<<< HEAD
 The desktop release is the simplest path for a Windows PC. Install the generated `MirrorForge-1.0.0-win-x64-setup.exe` installer or run `MirrorForge-1.0.0-win-x64-portable.exe` (use the matching ARM64 artifact on Windows ARM devices). It starts an embedded HTTP server and opens the administration UI. On first launch, create the administrator account on the PC itself; first-run setup rejects requests that do not originate from the local browser.
+=======
+The desktop release is the simplest path for a Windows PC. Install the generated `MirrorForge-1.0.1-win-x64-setup.exe` installer or run `MirrorForge-1.0.1-win-x64-portable.exe` (use the matching ARM64 artifact on Windows ARM devices). It starts an embedded HTTP server and opens the administration UI. On first launch, create the administrator account on the PC itself; first-run setup rejects requests that do not originate from the local browser.
+>>>>>>> 1f9b19d (Fix V1 builds and add legacy iOS 9 client)
 
 For source runs:
 
@@ -64,4 +68,8 @@ Installers run the server locally without asking the end user to install Node.js
 
 The APK and IPA are thin native launchers. On first open, enter the PC's LAN URL or HTTPS hostname; enter a device display URL to open a dedicated screen directly. They do not host the main dashboard database on the phone. The Android build advertises itself to Android TV launchers; test D-pad focus on the target TV.
 
+<<<<<<< HEAD
 The Android APK built by CI is debug-signed for private sideloading. The IPA is unsigned and built with a minimum target of iOS 13.0. Ordinary iPhones require valid Apple signing/provisioning; jailbreak workflows vary and are not guaranteed by this repository. These builds do not target iOS 8–12.
+=======
+The Android APK built by CI is debug-signed for private sideloading. CI produces two unsigned iOS artifacts: the modern Capacitor client (iOS 13+) and a display-only legacy client (iOS 9+ arm64). Ordinary iPhones require valid Apple signing/provisioning; jailbreak workflows vary and are not guaranteed by this repository. The legacy IPA does not include the armv7 architecture used by 32-bit hardware such as iPad 2; those devices can open `/legacy-display/<token>` in Safari on a trusted LAN, or require a separate build made with an older Xcode toolchain.
+>>>>>>> 1f9b19d (Fix V1 builds and add legacy iOS 9 client)

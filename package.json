@@ -1,6 +1,10 @@
 {
   "name": "mirrorforge",
+<<<<<<< HEAD
   "version": "1.0.0",
+=======
+  "version": "1.0.1",
+>>>>>>> 1f9b19d (Fix V1 builds and add legacy iOS 9 client)
   "description": "Self-hosted, multi-screen digital dashboard and smart-mirror platform",
   "private": true,
   "license": "UNLICENSED",
@@ -79,6 +83,7 @@
       "createStartMenuShortcut": true,
       "artifactName": "MirrorForge-${version}-${platform}-${arch}-setup.${ext}"
     },
+<<<<<<< HEAD
     "linux": {
       "target": [
         "AppImage",
@@ -91,6 +96,8 @@
       },
       "icon": "build/icons"
     },
+=======
+>>>>>>> 1f9b19d (Fix V1 builds and add legacy iOS 9 client)
     "mac": {
       "target": [
         "dmg",
