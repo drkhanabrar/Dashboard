@@ -1,4 +1,4 @@
-# MirrorForge — Version 1.0.1
+# MirrorForge — Version 1.0.2
 
 A self-hosted, multi-screen digital dashboard for smart mirrors, PCs, tablets, phones and Android TV. The desktop application bundles its own HTTP server and SQLite database; display devices connect to that server through a local network or a secure HTTPS tunnel.
 
@@ -70,7 +70,7 @@ mirrorforge-v1/
 
 ## GitHub release workflow
 
-Push a version tag such as `v1.0.1` to run `.github/workflows/release.yml`. It builds desktop packages in a runner matrix, produces the Android APK and both modern/legacy iOS IPA artifacts, and attaches the outputs to a GitHub Release. The workflow can also be run manually to inspect build artifacts without publishing a release.
+Push a version tag such as `v1.0.2` to run `.github/workflows/release.yml`. It builds desktop packages in a runner matrix, produces the Android APK and both modern/legacy iOS IPA artifacts, and attaches the outputs to a GitHub Release. The workflow can also be run manually to inspect build artifacts without publishing a release. Desktop builds explicitly disable Electron Builder publishing; only the release job attaches artifacts to GitHub Release.
 
 GitHub-hosted runner availability and native toolchains can change. If an architecture's hosted runner is not enabled for a repository/account, switch that matrix row to an available runner or a self-hosted runner with the matching CPU architecture. macOS notarization and Windows publisher signing are not configured in V1; unsigned desktop builds may show operating-system security warnings.
 
@@ -95,3 +95,12 @@ Detailed steps: [`docs/LICENSING.md`](docs/LICENSING.md).
 This first release provides the server, dashboard foundation, widget configuration, display player, device links, local media, tier limits and automated build packaging. A committed npm lockfile is not included in this initial source drop; the included GitHub workflows install the pinned top-level dependency versions, and a `package-lock.json` should be committed after the first successful dependency installation for fully locked transitive dependencies. Full Google/Apple calendar OAuth, cloud photo providers, drag-and-drop canvas editor, user/tenant administration, subscription billing, app-store signing/notarization, auto-updaters, remote monitoring, and armv7 legacy IPAs for 32-bit iOS hardware are intentionally left for later updates.
 
 See [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md), [`docs/LICENSING.md`](docs/LICENSING.md) and [`docs/RELEASES.md`](docs/RELEASES.md).
+
+
+### Build exits with “GitHub Personal Access Token is not set”
+
+The desktop artifacts may already have been generated; this error means Electron
+Builder tried to publish them itself. V1.0.2 uses `--publish never` during each
+platform build. The dedicated GitHub Release job uploads the collected artifacts
+using the built-in `github.token` and `contents: write` permission. Do not add a
+personal access token just to compile the desktop packages.

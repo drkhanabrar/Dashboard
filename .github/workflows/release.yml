@@ -64,10 +64,10 @@ jobs:
           iconutil -c icns build/MirrorForge.iconset -o build/icon.icns
       - name: Build Linux package targets
         if: matrix.platform == 'linux'
-        run: npx electron-builder --linux AppImage deb --${{ matrix.arch }}
+        run: npx electron-builder --linux AppImage deb --${{ matrix.arch }} --publish never
       - name: Build Windows or macOS package targets
         if: matrix.platform != 'linux'
-        run: npx electron-builder --${{ matrix.platform }} --${{ matrix.arch }}
+        run: npx electron-builder --${{ matrix.platform }} --${{ matrix.arch }} --publish never
       - name: Upload desktop artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -213,5 +213,6 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: release-assets/*
+          token: ${{ github.token }}
           generate_release_notes: true
           fail_on_unmatched_files: true

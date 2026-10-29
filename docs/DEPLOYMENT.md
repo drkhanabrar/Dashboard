@@ -2,7 +2,7 @@
 
 ## 1. First run
 
-The desktop release is the simplest path for a Windows PC. Install the generated `MirrorForge-1.0.1-win-x64-setup.exe` installer or run `MirrorForge-1.0.1-win-x64-portable.exe` (use the matching ARM64 artifact on Windows ARM devices). It starts an embedded HTTP server and opens the administration UI. On first launch, create the administrator account on the PC itself; first-run setup rejects requests that do not originate from the local browser.
+The desktop release is the simplest path for a Windows PC. Install the generated `MirrorForge-1.0.2-win32-x64-setup.exe` installer or run `MirrorForge-1.0.2-win32-x64-portable.exe` (use the matching ARM64 artifact on Windows ARM devices). It starts an embedded HTTP server and opens the administration UI. On first launch, create the administrator account on the PC itself; first-run setup rejects requests that do not originate from the local browser.
 
 For source runs:
 
