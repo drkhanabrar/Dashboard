@@ -1,14 +1,6 @@
 {
   "name": "mirrorforge",
-<<<<<<< HEAD
-<<<<<<< HEAD
-  "version": "1.0.0",
-=======
-  "version": "1.0.1",
->>>>>>> 1f9b19d (Fix V1 builds and add legacy iOS 9 client)
-=======
   "version": "1.0.2",
->>>>>>> 81416ff (Fix Electron Builder publishing in V1.0.2)
   "description": "Self-hosted, multi-screen digital dashboard and smart-mirror platform",
   "private": true,
   "license": "UNLICENSED",
@@ -87,21 +79,6 @@
       "createStartMenuShortcut": true,
       "artifactName": "MirrorForge-${version}-${platform}-${arch}-setup.${ext}"
     },
-<<<<<<< HEAD
-    "linux": {
-      "target": [
-        "AppImage",
-        "deb"
-      ],
-      "category": "Utility",
-      "artifactName": "MirrorForge-${version}-${platform}-${arch}.${ext}",
-      "desktop": {
-        "StartupWMClass": "mirrorforge"
-      },
-      "icon": "build/icons"
-    },
-=======
->>>>>>> 1f9b19d (Fix V1 builds and add legacy iOS 9 client)
     "mac": {
       "target": [
         "dmg",
