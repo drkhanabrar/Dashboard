@@ -1,0 +1,21 @@
+* { -webkit-box-sizing: border-box; box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; background: #06101a; color: #f1f7fc; font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif; }
+body { min-height: 100vh; display: -webkit-box; display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center; -webkit-justify-content: center; justify-content: center; padding: 20px; }
+.launcher { width: 100%; max-width: 440px; padding: 30px 25px; border: 1px solid #263b52; border-radius: 20px; background: #0c1b2c; }
+.mark { width: 52px; height: 52px; line-height: 52px; text-align: center; border-radius: 15px; background: #50d8c6; color: #06242c; font-size: 29px; font-weight: bold; }
+.eyebrow { margin: 25px 0 8px; color: #6f8eaa; font-size: 9px; font-weight: bold; letter-spacing: 2px; }
+h1 { margin: 0; font-size: 33px; letter-spacing: -1px; }
+h1 span { color: #68e9d2; }
+.intro { margin: 12px 0 23px; color: #9bb0c4; font-size: 13px; line-height: 1.6; }
+form { display: block; }
+label { display: block; margin-bottom: 8px; color: #b6c8d9; font-size: 12px; font-weight: bold; }
+input { display: block; width: 100%; min-height: 45px; padding: 10px; border: 1px solid #31465d; border-radius: 8px; background: #071321; color: #fff; font-size: 13px; }
+.hint { margin: 8px 0 14px; color: #8097ad; font-size: 10px; line-height: 1.6; }
+button { display: block; width: 100%; min-height: 45px; border: 0; border-radius: 9px; background: #53dec9; color: #06272d; font-size: 12px; font-weight: bold; }
+.forget { margin-top: 10px; border: 1px solid #31465d; background: transparent; color: #9eb4ca; }
+.privacy { margin-top: 20px; padding-top: 16px; border-top: 1px solid #22364b; color: #7e96ac; font-size: 10px; line-height: 1.6; }
+.dot { display: inline-block; width: 6px; height: 6px; margin-right: 7px; border-radius: 50%; background: #64e4d0; vertical-align: middle; }
+footer { margin-top: 22px; color: #536b83; font-size: 9px; text-align: center; letter-spacing: 1px; }
+.error { position: fixed; left: 15px; right: 15px; bottom: 15px; padding: 12px; border: 1px solid #75434e; border-radius: 9px; background: #2c1b27; color: #ffccd2; font-size: 12px; }
+.hidden { display: none !important; }
+@media (max-width: 360px) { body { padding: 10px; } .launcher { padding: 24px 18px; } h1 { font-size: 29px; } }

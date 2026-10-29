@@ -1,0 +1,22 @@
+MirrorForge V1.0.1 build fix — 2026-10-29
+
+Original failure:
+  electron-builder configuration validation reported:
+    configuration.linux should be a null
+
+Remediation:
+  - Removed build.linux from package.json entirely so Linux-specific metadata does not participate in validation for Windows or macOS builds.
+  - Passed Linux targets explicitly in the Linux GitHub Actions step and the build:linux / build:linux:arm64 scripts: `--linux AppImage deb`.
+  - Added tests/build-config.test.cjs to prevent build.linux from being reintroduced in this release baseline.
+
+Legacy iOS:
+  - Added a native Objective-C/WKWebView launcher with an iOS 9 deployment target.
+  - Added an ES5-compatible server-rendered display route at /legacy-display/:token.
+  - The generated legacy IPA is arm64-only. It does not install on 32-bit iPad 2-class hardware; use Safari on a trusted LAN or a separately maintained old Xcode/armv7 build for those devices.
+
+Verification performed in this environment:
+  - Node syntax checks for server, desktop, mobile, and legacy JavaScript: passed.
+  - `npm test`: 10 tests passed.
+  - Info.plist and Xcode project plist syntax validation: passed.
+  - GitHub Actions workflow YAML parsing: passed.
+  - Native desktop installers, Android APK, and iOS IPA were not built in this environment; GitHub Actions must produce and verify those artifacts.

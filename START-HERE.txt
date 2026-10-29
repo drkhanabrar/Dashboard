@@ -1,0 +1,15 @@
+MIRRORFORGE V1.0.1 — GETTING STARTED
+===================================
+
+1) Windows users: push this source to GitHub, run Actions, and download the Windows installer or portable EXE from the v1.0.1 Release.
+2) To run from source, install Node.js 22 or newer, extract the source, open a terminal in the folder, run `npm install`, then `npm start`.
+3) On first launch, create the administrator account locally on the PC. Use a strong password (12+ characters).
+4) In the dashboard create a screen, add widgets, then create a display device. Open its display URL on a phone, tablet, Android TV or mirror browser.
+5) Keep the PC awake. For internet access, configure a secure HTTPS tunnel. Do not expose an HTTP server port directly to the public internet.
+6) Android APK is debug-signed for private sideloading. The modern iOS IPA is unsigned and targets iOS 13+. The legacy iOS IPA is unsigned, display-only, targets iOS 9+ and is arm64-only; it will not install on 32-bit hardware such as iPad 2.
+7) For 32-bit old devices, open `/legacy-display/<token>` in Safari over a trusted local network, or build with a separately maintained old Xcode/armv7 toolchain.
+8) The matching licence private key is delivered as a separate file. Copy it to `secrets/license-private.pem` on your issuer host. Never upload it, issuer tokens, Apple credentials or Android keystores to GitHub.
+
+Build repair in V1.0.1: Linux-specific Electron Builder metadata has been removed from package.json. Linux target types are now passed directly in the Linux build workflow/script to prevent the reported `configuration.linux should be a null` configuration failure from blocking other platforms.
+
+See README.md, docs/DEPLOYMENT.md, docs/LICENSING.md and docs/RELEASES.md.

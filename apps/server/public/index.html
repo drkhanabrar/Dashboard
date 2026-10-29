@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07111f">
+  <meta name="description" content="MirrorForge — your self-hosted digital display platform.">
+  <title>MirrorForge</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div id="auth-screen" class="auth-screen hidden">
+    <div class="auth-art">
+      <div class="brand brand-large"><span class="brand-mark">M</span><span>Mirror<span class="brand-accent">Forge</span></span></div>
+      <div class="auth-art-copy">
+        <p class="eyebrow">YOUR SCREENS. YOUR SERVER.</p>
+        <h1>A calmer view of your world.</h1>
+        <p>One dashboard, all your displays. Private by design and hosted on hardware you control.</p>
+      </div>
+      <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="orbit orbit-three"></div>
+      <div class="art-chip chip-clock"><span class="chip-dot"></span> 09:41 <span class="muted">MON</span></div>
+      <div class="art-chip chip-weather">☼ <strong>24°</strong><span class="muted">CLEAR</span></div>
+      <div class="art-chip chip-calendar"><span class="calendar-mini">29</span><span><strong>Team planning</strong><small>Today · 2:30 PM</small></span></div>
+    </div>
+    <div class="auth-panel">
+      <div class="auth-card" id="auth-card"></div>
+      <p class="auth-foot">MIRRORFORGE <span>•</span> SELF-HOSTED DISPLAY PLATFORM</p>
+    </div>
+  </div>
+
+  <div id="app-shell" class="app-shell hidden">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand"><span class="brand-mark">M</span><span>Mirror<span class="brand-accent">Forge</span></span><span class="version-pill">V1</span></div>
+      <div class="workspace-label">WORKSPACE</div>
+      <nav class="nav-list" aria-label="Main navigation">
+        <button class="nav-item active" data-view="overview"><span class="nav-symbol">◫</span> Overview</button>
+        <button class="nav-item" data-view="screens"><span class="nav-symbol">▦</span> Screens <span id="nav-screen-count" class="nav-count">0</span></button>
+        <button class="nav-item" data-view="devices"><span class="nav-symbol">▣</span> Display devices</button>
+        <button class="nav-item" data-view="license"><span class="nav-symbol">◇</span> Licence & plans</button>
+        <button class="nav-item" data-view="settings"><span class="nav-symbol">⚙</span> Server settings</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="server-state"><span class="pulse-dot"></span><div><strong>Server running</strong><small>Local instance</small></div></div>
+        <div class="user-chip"><div class="avatar" id="user-avatar">MF</div><div class="user-info"><strong id="user-name">Administrator</strong><small>Server owner</small></div><button class="icon-button" id="logout-button" title="Sign out" aria-label="Sign out">↗</button></div>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <div class="topbar-title"><button class="mobile-menu icon-button" id="mobile-menu" aria-label="Toggle menu">☰</button><div><p class="eyebrow" id="top-eyebrow">YOUR WORKSPACE</p><h1 id="page-title">Overview</h1></div></div>
+        <div class="topbar-actions"><span class="secure-label"><span class="secure-dot"></span> SELF-HOSTED</span><button class="button button-primary" id="global-new-screen" data-action="create-screen"><span>＋</span> New screen</button></div>
+      </header>
+      <div class="content-area">
+        <div id="toast" class="toast hidden" role="status"></div>
+        <section id="view-overview" class="view"></section>
+        <section id="view-screens" class="view hidden"></section>
+        <section id="view-screen-detail" class="view hidden"></section>
+        <section id="view-devices" class="view hidden"></section>
+        <section id="view-license" class="view hidden"></section>
+        <section id="view-settings" class="view hidden"></section>
+      </div>
+      <footer class="app-footer"><span>MirrorForge <span class="footer-version">1.0.1</span></span><span>MADE FOR EVERY SCREEN <span class="footer-separator">/</span> YOUR DATA STAYS YOURS</span></footer>
+    </main>
+  </div>
+</body>
+</html>
