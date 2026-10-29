@@ -1,10 +1,14 @@
 {
   "name": "mirrorforge",
 <<<<<<< HEAD
+<<<<<<< HEAD
   "version": "1.0.0",
 =======
   "version": "1.0.1",
 >>>>>>> 1f9b19d (Fix V1 builds and add legacy iOS 9 client)
+=======
+  "version": "1.0.2",
+>>>>>>> 81416ff (Fix Electron Builder publishing in V1.0.2)
   "description": "Self-hosted, multi-screen digital dashboard and smart-mirror platform",
   "private": true,
   "license": "UNLICENSED",
@@ -23,14 +27,14 @@
     "mobile:sync": "npm run mobile:prepare && npx cap sync",
     "mobile:add:android": "npm run mobile:prepare && npx cap add android",
     "mobile:add:ios": "npm run mobile:prepare && npx cap add ios",
-    "build:win": "electron-builder --win nsis portable --x64",
-    "build:linux": "electron-builder --linux AppImage deb --x64",
-    "build:linux:arm64": "electron-builder --linux AppImage deb --arm64",
-    "build:mac:intel": "electron-builder --mac dmg zip --x64",
-    "build:mac:arm": "electron-builder --mac dmg zip --arm64",
+    "build:win": "electron-builder --win nsis portable --x64 --publish never",
+    "build:linux": "electron-builder --linux AppImage deb --x64 --publish never",
+    "build:linux:arm64": "electron-builder --linux AppImage deb --arm64 --publish never",
+    "build:mac:intel": "electron-builder --mac dmg zip --x64 --publish never",
+    "build:mac:arm": "electron-builder --mac dmg zip --arm64 --publish never",
     "test": "node --test tests/*.test.cjs",
     "test:smoke": "node scripts/smoke-test.cjs",
-    "build:win:arm64": "electron-builder --win nsis portable --arm64"
+    "build:win:arm64": "electron-builder --win nsis portable --arm64 --publish never"
   },
   "dependencies": {
     "bcryptjs": "3.0.2",

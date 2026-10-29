@@ -3,10 +3,14 @@
 ## 1. First run
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 The desktop release is the simplest path for a Windows PC. Install the generated `MirrorForge-1.0.0-win-x64-setup.exe` installer or run `MirrorForge-1.0.0-win-x64-portable.exe` (use the matching ARM64 artifact on Windows ARM devices). It starts an embedded HTTP server and opens the administration UI. On first launch, create the administrator account on the PC itself; first-run setup rejects requests that do not originate from the local browser.
 =======
 The desktop release is the simplest path for a Windows PC. Install the generated `MirrorForge-1.0.1-win-x64-setup.exe` installer or run `MirrorForge-1.0.1-win-x64-portable.exe` (use the matching ARM64 artifact on Windows ARM devices). It starts an embedded HTTP server and opens the administration UI. On first launch, create the administrator account on the PC itself; first-run setup rejects requests that do not originate from the local browser.
 >>>>>>> 1f9b19d (Fix V1 builds and add legacy iOS 9 client)
+=======
+The desktop release is the simplest path for a Windows PC. Install the generated `MirrorForge-1.0.2-win32-x64-setup.exe` installer or run `MirrorForge-1.0.2-win32-x64-portable.exe` (use the matching ARM64 artifact on Windows ARM devices). It starts an embedded HTTP server and opens the administration UI. On first launch, create the administrator account on the PC itself; first-run setup rejects requests that do not originate from the local browser.
+>>>>>>> 81416ff (Fix Electron Builder publishing in V1.0.2)
 
 For source runs:
 

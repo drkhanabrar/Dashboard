@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 MIRRORFORGE V1 — GETTING STARTED
 ================================
 
@@ -13,9 +14,12 @@ MIRRORFORGE V1 — GETTING STARTED
 See README.md, docs/DEPLOYMENT.md, docs/LICENSING.md and docs/RELEASES.md for details.
 =======
 MIRRORFORGE V1.0.1 — GETTING STARTED
+=======
+MIRRORFORGE V1.0.2 — GETTING STARTED
+>>>>>>> 81416ff (Fix Electron Builder publishing in V1.0.2)
 ===================================
 
-1) Windows users: push this source to GitHub, run Actions, and download the Windows installer or portable EXE from the v1.0.1 Release.
+1) Windows users: push this source to GitHub, run Actions, and download the Windows installer or portable EXE from the v1.0.2 Release.
 2) To run from source, install Node.js 22 or newer, extract the source, open a terminal in the folder, run `npm install`, then `npm start`.
 3) On first launch, create the administrator account locally on the PC. Use a strong password (12+ characters).
 4) In the dashboard create a screen, add widgets, then create a display device. Open its display URL on a phone, tablet, Android TV or mirror browser.
@@ -27,4 +31,9 @@ MIRRORFORGE V1.0.1 — GETTING STARTED
 Build repair in V1.0.1: Linux-specific Electron Builder metadata has been removed from package.json. Linux target types are now passed directly in the Linux build workflow/script to prevent the reported `configuration.linux should be a null` configuration failure from blocking other platforms.
 
 See README.md, docs/DEPLOYMENT.md, docs/LICENSING.md and docs/RELEASES.md.
+<<<<<<< HEAD
 >>>>>>> 1f9b19d (Fix V1 builds and add legacy iOS 9 client)
+=======
+
+V1.0.2 repair: every Electron Builder desktop command now includes `--publish never`. The build jobs upload artifacts to Actions; the single release job publishes them using the built-in GitHub Actions token. Do not add a personal access token for compilation.
+>>>>>>> 81416ff (Fix Electron Builder publishing in V1.0.2)

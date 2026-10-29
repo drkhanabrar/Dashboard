@@ -20,3 +20,25 @@ Verification performed in this environment:
   - Info.plist and Xcode project plist syntax validation: passed.
   - GitHub Actions workflow YAML parsing: passed.
   - Native desktop installers, Android APK, and iOS IPA were not built in this environment; GitHub Actions must produce and verify those artifacts.
+
+
+V1.0.2 fix — Electron Builder auto-publishing token failure
+
+Reported error:
+  GitHub Personal Access Token is not set, neither programmatically,
+  nor using env GH_TOKEN.
+
+Interpretation:
+  The Windows NSIS installer and portable EXE had already been built. The
+  command then failed because electron-builder 26 can implicitly attempt a
+  GitHub release publish when a tagged CI build is detected.
+
+Remediation:
+  - Added `--publish never` to every Electron Builder command in GitHub Actions.
+  - Added `--publish never` to all local desktop build scripts.
+  - Left release publishing to the dedicated `softprops/action-gh-release` step,
+    passing GitHub's built-in `${{ github.token }}` with contents: write permission.
+  - Bumped package version to 1.0.2 and added a regression test for all desktop scripts.
+
+This removes the need for a personal access token for the desktop compilation
+steps. The final release job uses the workflow's built-in GitHub token.
