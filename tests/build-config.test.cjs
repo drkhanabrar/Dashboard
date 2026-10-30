@@ -40,3 +40,25 @@ test('GitHub Actions desktop builds never publish directly from electron-builder
   assert.match(releaseWorkflow, /token: \$\{\{ github\.token \}\}/);
   assert.match(releaseWorkflow, /contents: write/);
 });
+
+
+test('Capacitor TypeScript config dependency is installed at repository root', () => {
+  assert.ok(packageJson.devDependencies.typescript, 'Capacitor needs TypeScript to parse capacitor.config.ts');
+});
+
+test('Linux AppImage uses the static runtime toolset for Ubuntu 24.04+ compatibility', () => {
+  assert.equal(packageJson.build.toolsets?.appimage, '1.0.3');
+});
+
+test('Modern hosted iOS IPA uses iOS 15 target and is not mislabeled iOS 13', () => {
+  assert.match(releaseWorkflow, /name: Modern iOS 15\+ unsigned IPA/);
+  assert.match(releaseWorkflow, /IPHONEOS_DEPLOYMENT_TARGET=15\.0/);
+  assert.match(releaseWorkflow, /ios15plus-unsigned\.ipa/);
+});
+
+test('Legacy iOS 9 IPA uses opt-in Xcode 12.5.1 self-hosted runner', () => {
+  assert.match(releaseWorkflow, /MIRRORFORGE_IOS9_RUNNER_READY == 'true'/);
+  assert.match(releaseWorkflow, /runs-on: \[self-hosted, macOS, ios9-xcode12\]/);
+  assert.match(releaseWorkflow, /Xcode 12\.5\.1/);
+  assert.match(releaseWorkflow, /needs\['ios-legacy'\]\.result == 'skipped'/);
+});

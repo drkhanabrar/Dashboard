@@ -1,6 +1,6 @@
 {
   "name": "mirrorforge-mobile-shell",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "private": true,
   "description": "Native launcher for a user-hosted MirrorForge server"
 }

@@ -42,3 +42,11 @@ Remediation:
 
 This removes the need for a personal access token for the desktop compilation
 steps. The final release job uses the workflow's built-in GitHub token.
+
+
+V1.0.3 build fixes
+------------------
+- Added TypeScript as a root development dependency because Capacitor needs it to parse capacitor.config.ts.
+- Configured the static AppImage 1.0.3 toolset for Ubuntu 24.04+ to avoid the legacy FUSE2 runtime. Linux steps emit electron-builder debug output for diagnosis if they fail again.
+- Modern hosted iOS artifact is correctly labeled iOS 15+, matching the Xcode 16.4 SDK.
+- The iOS 9 legacy IPA job is opt-in and requires a self-hosted Mac with Xcode 12.5.1. It is skipped by default rather than falsely claiming a current Xcode can target iOS 9.

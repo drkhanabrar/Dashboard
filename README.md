@@ -1,4 +1,4 @@
-# MirrorForge — Version 1.0.2
+# MirrorForge — Version 1.0.3
 
 A self-hosted, multi-screen digital dashboard for smart mirrors, PCs, tablets, phones and Android TV. The desktop application bundles its own HTTP server and SQLite database; display devices connect to that server through a local network or a secure HTTPS tunnel.
 
@@ -14,7 +14,7 @@ A self-hosted, multi-screen digital dashboard for smart mirrors, PCs, tablets, p
 - **Local media storage:** image uploads stored on the PC/server, with a 10 MB upload cap.
 - **Server-side authentication:** first-run owner setup restricted to localhost, password hashing, HTTP-only session cookie, HMAC-signed session token, login rate limiting and security headers.
 - **Tiered licensing scaffold:** Free, Home, Pro and Commercial tiers with server-enforced screen/widget/device quotas, a separate licence issuer, hashed licence keys, activation-seat limits, seat deactivation, issuer revalidation and Ed25519-signed licence payloads.
-- **Mobile shell:** Capacitor source for Android and modern iOS plus a separate native legacy iOS client. Android CI produces a debug-signed APK with Android TV launcher metadata. Modern iOS CI produces an iOS 13+ unsigned IPA. A separate iOS 9+ arm64 legacy IPA opens display-only links using an ES5-compatible renderer.
+- **Mobile shell:** Capacitor source for Android and modern iOS plus a separate native legacy iOS client. Android CI produces a debug-signed APK with Android TV launcher metadata. Modern iOS CI produces an iOS 15+ unsigned IPA. A separate iOS 9+ arm64 legacy IPA can be built on an optional self-hosted Mac with Xcode 12.5.1; the hosted workflow skips that job by default. The ES5-compatible display renderer remains included.
 - **GitHub Actions:** CI tests and tagged release builds for the configured desktop architectures plus Android APK and iOS IPA artifacts.
 
 ## Quick start on Windows
@@ -70,7 +70,7 @@ mirrorforge-v1/
 
 ## GitHub release workflow
 
-Push a version tag such as `v1.0.2` to run `.github/workflows/release.yml`. It builds desktop packages in a runner matrix, produces the Android APK and both modern/legacy iOS IPA artifacts, and attaches the outputs to a GitHub Release. The workflow can also be run manually to inspect build artifacts without publishing a release. Desktop builds explicitly disable Electron Builder publishing; only the release job attaches artifacts to GitHub Release.
+Push a version tag such as `v1.0.3` to run `.github/workflows/release.yml`. It builds desktop packages in a runner matrix, produces the Android APK and modern iOS IPA, and optionally builds a legacy iOS 9 IPA when a compatible self-hosted Mac is configured, then attaches available outputs to a GitHub Release. The workflow can also be run manually to inspect build artifacts without publishing a release. The iOS 9 legacy IPA job is skipped unless a self-hosted Mac with Xcode 12.5.1 is configured. The iOS 9 legacy IPA job is skipped unless a self-hosted Mac with Xcode 12.5.1 is configured. Desktop builds explicitly disable Electron Builder publishing; only the release job attaches artifacts to GitHub Release.
 
 GitHub-hosted runner availability and native toolchains can change. If an architecture's hosted runner is not enabled for a repository/account, switch that matrix row to an available runner or a self-hosted runner with the matching CPU architecture. macOS notarization and Windows publisher signing are not configured in V1; unsigned desktop builds may show operating-system security warnings.
 
@@ -86,8 +86,8 @@ Detailed steps: [`docs/LICENSING.md`](docs/LICENSING.md).
 
 - **Android:** CI currently builds a debug-signed APK for private testing/sideloading. It is installable on compatible devices but is not a Play Store production-signed release. For public distribution, add a protected Android release keystore and signing stage.
 - **Android TV:** the workflow adds the Leanback launcher category and marks touchscreen hardware optional. Actual TV navigation and rendering must be tested with the specific TV/remote.
-- **iOS 13+:** the Capacitor launcher is built at an iOS 13.0 deployment target and packaged as an **unsigned** IPA. It requires Apple signing/provisioning for normal device installation; jailbreak installation varies by device and tool.
-- **Legacy iOS 9+:** a second native WKWebView launcher targets iOS 9 and opens the server's `/legacy-display/<token>` page. The legacy page is display-only and uses ES5 JavaScript plus older CSS. The CI artifact is arm64-only, so it targets 64-bit iOS 9-capable devices; it will not install on 32-bit devices such as iPad 2. For those older 32-bit devices, open the legacy display link in Safari on a trusted LAN, or build a separate armv7 IPA with an older Xcode toolchain. An IPA built by current GitHub runners is unsigned and is not installable on ordinary devices until signed or processed using a compatible jailbreak workflow.
+- **iOS 15+:** the Capacitor launcher is built at an iOS 15.0 deployment target and packaged as an **unsigned** IPA. It requires Apple signing/provisioning for normal device installation; jailbreak installation varies by device and tool.
+- **Legacy iOS 9+:** a second native WKWebView launcher targets iOS 9 and opens the server's `/legacy-display/<token>` page. The legacy page is display-only and uses ES5 JavaScript plus older CSS. The IPA job is optional because it requires a self-hosted Mac using Xcode 12.5.1; the current hosted Xcode 16.4 runner is not used for an iOS 9 deployment target. The IPA is arm64-only and will not install on 32-bit devices such as iPad 2. For those devices, open the legacy display link in Safari on a trusted LAN. Any produced IPA is unsigned and requires a compatible signing/install path.
 - The mobile shell opens the server URL chosen by the device owner. Only connect to a server you trust. Use HTTPS over the internet. HTTP is allowed for local network compatibility and must not be considered secure on untrusted networks.
 
 ## V1 boundaries
@@ -100,7 +100,7 @@ See [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md), [`docs/LICENSING.md`](docs/LICEN
 ### Build exits with “GitHub Personal Access Token is not set”
 
 The desktop artifacts may already have been generated; this error means Electron
-Builder tried to publish them itself. V1.0.2 uses `--publish never` during each
+Builder tried to publish them itself. V1.0.3 uses `--publish never` during each
 platform build. The dedicated GitHub Release job uploads the collected artifacts
 using the built-in `github.token` and `contents: write` permission. Do not add a
 personal access token just to compile the desktop packages.
